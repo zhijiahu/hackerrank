@@ -3,25 +3,32 @@ Sample Input
 cde
 abc
 
+cdde
+adc
+
+
 Sample Output
 4
 
 """
 
+from collections import defaultdict
+
+
 def number_needed(a, b):
-    # increment if a contains a char not in b
     count = 0
+    freq = defaultdict(int)
 
-    # build a dict of char -> count for a and b
-    a_char_count = {}
     for char in a:
-        if char in a_char_count:
-            a_char_count[char] += 1
-        else:
-            a_char_count[char] = 1
-
+        freq[char] += 1
+    for char in b:
+        freq[char] -= 1
+    
+    for c in freq.values():
+        count += abs(c)
 
     return count
+
 
 a = input().strip()
 b = input().strip()
