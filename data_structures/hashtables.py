@@ -1,12 +1,43 @@
 class HashTable:
-    def __init__():
-        self.array = []
+    def __init__(self):
+        self._map = [[] for i in range(256)]
 
     def __setitem__(self, key, value):
-        pass
+        index = self._get_index(key)
+        bucket = self._map[index]
 
-    def _get_hash_value(key):
-        pass
+        keyIndex = -1
+        for i, kv in enumerate(bucket):
+            k, v = kv
+            if k == key:
+                keyIndex = i
+                break
 
-    def _get_index_from_hash(hash):
-        pass
+        if keyIndex >= 0:
+            bucket[keyIndex] = (key, value)
+        else:
+            bucket.append((key, value))
+
+    def __getitem__(self, key):
+        index = self._get_index(key)
+        bucket = self._map[index]
+
+        for i, kv in enumerate(bucket):
+            k, v = kv
+            if k == key:
+                return v
+
+        return None
+
+    def _get_index(self, key):
+        return hash(key) % len(self._map)
+
+
+if __name__ == '__main__':
+    d = HashTable()
+    d['test'] = 2
+    print(d['test'])
+    d['test'] = 3
+    print(d['test'])
+    d['test'] = '13'
+    print(d['test'])
