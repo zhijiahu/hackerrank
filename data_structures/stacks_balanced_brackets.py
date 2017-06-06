@@ -1,7 +1,12 @@
 
+"""
+3
+{[()]}
+{[(])}
+{{[[(())]]}}
 
+"""
 def is_matched(expression):
-
     stack = []
     for bracket in expression:
         # Found a close bracket
@@ -18,7 +23,8 @@ def is_matched(expression):
             # Assume opened brackets, push into stack
             stack.append(bracket)
 
-    return True
+    # stack should be empty if every opened brackets has been `balanced` by closed brackets
+    return len(stack) == 0
 
 t = int(input().strip())
 for a0 in range(t):
