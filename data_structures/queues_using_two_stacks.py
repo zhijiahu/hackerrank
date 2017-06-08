@@ -6,16 +6,24 @@
 """
 class MyQueue(object):
     def __init__(self):
-        
+        self.stack1 = []
+        self.stack2 = []
     
     def peek(self):
-        
+        return self.stack1[0]
         
     def pop(self):
-        
+        del self.stack1[0]
+        return self.stack2.pop()
         
     def put(self, value):
-        
+        self.stack1.append(value)
+
+        temp = list(self.stack1)
+
+        while len(temp) > 0:
+            self.stack2.append(temp.pop())
+
 
 queue = MyQueue()
 t = int(input())
