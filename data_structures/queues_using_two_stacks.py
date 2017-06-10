@@ -10,20 +10,27 @@ class MyQueue(object):
         self.stack2 = []
     
     def peek(self):
-        return self.stack1[0]
-        
+        if not self.stack2:
+            self.move_to_other_stack()
+            
+        return self.stack2[-1]
+            
     def pop(self):
-        del self.stack1[0]
-        return self.stack2.pop()
+        if not self.stack2:
+            self.move_to_other_stack()
         
+        return self.stack2.pop()
+            
     def put(self, value):
         self.stack1.append(value)
 
-        temp = list(self.stack1)
+    def move_to_other_stack(self):
+        # move all elements in stack1 to stack2 in reverse order
+        while self.stack1:
+            self.stack2.append(self.stack1.pop())
 
-        while len(temp) > 0:
-            self.stack2.append(temp.pop())
-
+        
+                
 
 queue = MyQueue()
 t = int(input())
