@@ -1,35 +1,37 @@
+from trees_binary_search import checkBST
+
 
 class Node:
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, data):
+        self.data = data
         self.left = None
         self.right = None
     
-    def insert(self, value):
+    def insert(self, data):
         """
         Naive way
         """
-        if value < self.value:
+        if data < self.data:
             if self.left is None:
-                self.left = Node(value)
+                self.left = Node(data)
             else:
-                self.left.insert(value)
-        elif value > self.value:
+                self.left.insert(data)
+        elif data > self.data:
             if self.right is None:
-                self.right = Node(value)
+                self.right = Node(data)
             else:
-                self.right.insert(value)
+                self.right.insert(data)
 
-    def contains(self, value):
-        if value < self.value:
+    def contains(self, data):
+        if data < self.data:
             if self.left is not None:
-                return self.left.contains(value)
+                return self.left.contains(data)
             else:
                 return False
                 
-        elif value > self.value:
+        elif data > self.data:
             if self.right is not None:
-                return self.right.contains(value)
+                return self.right.contains(data)
             else:
                 return False
         else:
@@ -39,18 +41,21 @@ class Node:
         if self.left is not None:
             self.left.print_in_order()
 
-        print('[{value}]'.format(value=self.value))
+        print('[{data}]'.format(data=self.data))
 
         if self.right is not None:
             self.right.print_in_order()
 
 
 if __name__ == "__main__":
-    n = Node(5)
+    n = Node(1)
+    n.insert(2)
+    n.insert(4)
     n.insert(3)
-    n.insert(7)
-    n.insert(1)
-    n.insert(15)
+    n.insert(5)
     n.insert(6)
+    n.insert(7)
 
     n.print_in_order()
+
+    print(checkBST(n))
