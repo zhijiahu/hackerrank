@@ -1,4 +1,4 @@
-from trees_binary_search import checkBST
+from trees_is_binary_search import checkBST
 
 
 class Node:
