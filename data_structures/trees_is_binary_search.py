@@ -24,10 +24,10 @@ def checkNode(node, min, max):
     if node is None:
         return False
 
-    if node.data < min:
+    if node.data <= min:
         return False
 
-    if node.data > max:
+    if node.data >= max:
         return False
     
     if node.left is not None:
