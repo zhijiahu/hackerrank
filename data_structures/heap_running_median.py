@@ -40,42 +40,75 @@ def get_running_medium_fast(a_i, a_t):
 
    if max_heap.peek() is None:
       max_heap.add(a_t)
-      print(a_t / 1)
-      return
+      print(a_t)
+      return a_t / 1
 
    # Check which heap to add to
    if a_t <= max_heap.peek():
       if max_heap.size() > min_heap.size():
          min_heap.add(max_heap.poll())
-
       max_heap.add(a_t)
    else:
+      swap = True
       if min_heap.size() > max_heap.size():
-         max_heap.add(min_heap.poll())
+         if a_t < min_heap.peek(): # this value should stay in min if it's greater than a_t
+            max_heap.add(a_t)
+            swap = False
+         else:
+            max_heap.add(min_heap.poll())
 
-      min_heap.add(a_t)
+      if swap:
+         min_heap.add(a_t)
+
+   print(a_t)
+   print('Max heap {2}:{0}\nMin heap {3}:{1}\n'.format(max_heap, min_heap, max_heap.size(), min_heap.size()))
 
    if max_heap.size() < min_heap.size():
-      print(min_heap.peek() / 1)
+      return min_heap.peek() / 1
    elif max_heap.size() > min_heap.size():
-      print(max_heap.peek() / 1)
+      return max_heap.peek() / 1
    else:
-      print((max_heap.peek() + min_heap.peek()) / 2)
+      return (max_heap.peek() + min_heap.peek()) / 2
 
-n = int(input().strip())
-a = []
+
+def process_running_medium(a_i, a_t):
+   print(get_running_medium_fast(a_i, a_t))
+
+
 a_i = 0
 
-for a_i in range(n):
-   a_t = int(input().strip())
-   get_running_medium_fast(a_i, a_t)
+# User input
+# n = int(input().strip())
+
+# for a_i in range(n):
+#    a_t = int(input().strip())
+#    process_running_medium(a_i, a_t)
 
 
-if __name__ == "__main__":
-   random_list = random.sample(range(1000), 1000)
+# My test
+expected_results = []
+with open('heap_running_median_output.txt') as f:
+   for item in f:
+      expected_results.append(float(item))
 
-   for index, item in enumerate(random_list):
-      get_running_medium_fast(index, item)
+with open('heap_running_median_input.txt') as f:
+   for index, item in enumerate(f):
+      if index == 0: # skip the count
+         continue
+
+      result = get_running_medium_fast(a_i, float(item))
+      if result != float(expected_results[index-1]):
+         print('FUCK {0} != {1}'.format(result, expected_results[index-1]))
+         break
+
+      a_i += 1
+
+
+# if __name__ == "__main__":
+#    random_list = random.sample(range(1000), 1000)
+
+#    for index, item in enumerate(random_list):
+#       get_running_medium_fast(index, item)
 
    # for index, item in enumerate(random_list):
    #    get_running_medium_slow(index, item)

@@ -16,6 +16,9 @@ class Heap:
         else:
             self.__comparator = self.__less_than
 
+    def __str__(self):
+        return str(self.__items)
+
     def __more_than(self, item_one, item_two):
         return item_one > item_two
 
