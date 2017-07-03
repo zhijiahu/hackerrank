@@ -1,7 +1,6 @@
 
 import sys
 import random
-import copy
 
 from heap import Heap
 
@@ -78,37 +77,46 @@ def process_running_medium(a_i, a_t):
 a_i = 0
 
 # User input
-# n = int(input().strip())
+def run_with_user_input():
+   global a_i
+   n = int(input().strip())
 
-# for a_i in range(n):
-#    a_t = int(input().strip())
-#    process_running_medium(a_i, a_t)
+   for a_i in range(n):
+      a_t = int(input().strip())
+      process_running_medium(a_i, a_t)
 
+# Using test case 2 from hackerank
+def run_test_case_two():
+   global a_i
+   expected_results = []
+   with open('heap_running_median_output.txt') as f:
+      for item in f:
+         expected_results.append(float(item))
 
-# My test
-expected_results = []
-with open('heap_running_median_output.txt') as f:
-   for item in f:
-      expected_results.append(float(item))
+   with open('heap_running_median_input.txt') as f:
+      for index, item in enumerate(f):
+         if index == 0: # skip the count
+            continue
 
-with open('heap_running_median_input.txt') as f:
-   for index, item in enumerate(f):
-      if index == 0: # skip the count
-         continue
+         result = get_running_medium_fast(a_i, float(item))
+         if result != float(expected_results[index-1]):
+            print('FUCK {0} != {1}'.format(result, expected_results[index-1]))
+            break
 
-      result = get_running_medium_fast(a_i, float(item))
-      if result != float(expected_results[index-1]):
-         print('FUCK {0} != {1}'.format(result, expected_results[index-1]))
-         break
+         a_i += 1
 
-      a_i += 1
+def run_random():
+   random_list = random.sample(range(1000), 1000)
 
-
-# if __name__ == "__main__":
-#    random_list = random.sample(range(1000), 1000)
-
-#    for index, item in enumerate(random_list):
-#       get_running_medium_fast(index, item)
+   for index, item in enumerate(random_list):
+      get_running_medium_fast(index, item)
 
    # for index, item in enumerate(random_list):
    #    get_running_medium_slow(index, item)
+
+
+# Random generated test case
+if __name__ == "__main__":
+   run_with_user_input()
+   #run_test_case_two()
+   #run_random()
