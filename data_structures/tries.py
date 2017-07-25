@@ -21,11 +21,17 @@ class Tries:
     def has_word(self, word):
         pass
 
+    def __str__(self):
+        print(self.tries)
+
 
 class Node:
     def __init__(self):
         self._is_complete = False
         self.__children = {}
+
+    def __str__(self):
+        print(self._children)
 
     def add_child(self, word):
         first_letter = word[0]

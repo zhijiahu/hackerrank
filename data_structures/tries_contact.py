@@ -17,5 +17,8 @@ def run_with_user_input():
         elif op == 'find':
             find_partial(contact)
 
+        # debug
+        print(tries)
+
 if __name__ == '__main__':
     run_with_user_input()
