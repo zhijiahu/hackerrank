@@ -13,7 +13,7 @@ class Tries:
         self.tries = Node()
 
     def add(self, word):
-        self.tries.add_child(word)
+        self.tries.add(word)
 
     def start_with_prefix(self, prefix):
         pass
@@ -22,18 +22,21 @@ class Tries:
         pass
 
     def __str__(self):
-        print(self.tries)
+        return str(self.tries)
 
 
 class Node:
     def __init__(self):
         self._is_complete = False
+        self.__data = None
         self.__children = {}
 
     def __str__(self):
-        print(self._children)
+        return "data: {} children: {}".format(self.__data, self.__children)
 
-    def add_child(self, word):
+    def add(self, word):
+        self.__data = word
+
         first_letter = word[0]
 
         if len(word) > 1:
