@@ -6,7 +6,8 @@ def add_name(name):
     tries.add(name)
 
 def find_partial(partial):
-    pass
+    words = tries.get_words_starting_with_prefix(partial)
+    print(len(words))
 
 def run_with_user_input():
     n = int(input().strip())
