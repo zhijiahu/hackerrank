@@ -2,12 +2,17 @@ from tries import Tries
 
 tries = Tries()
 
+
 def add_name(name):
     tries.add(name)
+    print(tries)
 
 def find_partial(partial):
     words = tries.get_words_starting_with_prefix(partial)
-    print(len(words))
+    print(words)
+    result = len(words)
+    print(result)
+    return result
 
 def run_with_user_input():
     n = int(input().strip())
@@ -18,8 +23,31 @@ def run_with_user_input():
         elif op == 'find':
             find_partial(contact)
 
-        # debug
-        print(tries)
+def run_test_case():
+    expected_results = []
+    with open('tries_output.txt') as f:
+        for item in f:
+            expected_results.append(item)
+
+    output_index = 0
+    with open('tries_input.txt') as f:
+        for index, item in enumerate(f):
+            if index == 0: # skip the count
+                continue
+
+            op, contact = item.split(' ')
+            contact = contact.rstrip()
+            if op == 'add':
+                add_name(contact)
+            elif op == 'find':
+                result = find_partial(contact)
+                if result != int(expected_results[output_index]):
+                    print('input {}, output {}'.format(index, output_index))
+                    print('contact: {}'.format(contact))
+                    print('result:{} != expected:{}'.format(result, expected_results[output_index]))
+                    break
+                output_index += 1
 
 if __name__ == '__main__':
-    run_with_user_input()
+    #run_with_user_input()
+    run_test_case()
