@@ -1,5 +1,6 @@
 from tries import Tries
 
+
 tries = Tries()
 
 
@@ -49,5 +50,5 @@ def run_test_case():
                 output_index += 1
 
 if __name__ == '__main__':
-    #run_with_user_input()
-    run_test_case()
+    run_with_user_input()
+    #run_test_case()
