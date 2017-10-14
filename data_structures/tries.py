@@ -19,13 +19,22 @@ class Tries:
 
     def __init__(self):
         self.tries = Node()
+        self.cache = {}
 
     def add(self, word):
         self.tries.add(word)
 
+        for key in self.cache.keys():
+            if word.startswith(key):
+                self.cache[key].add(word)
+
     def get_words_starting_with_prefix(self, prefix):
+        if prefix in self.cache:
+            return self.cache[prefix]
+
         words = []
         self.tries.get_words_starting_with_prefix('', prefix, words)
+        self.cache[prefix] = set(words)
 
         return words
 
@@ -41,8 +50,6 @@ class Node:
         self._is_complete = False
         self.__children = {}
         self.__is_last_letter = False
-        self.__visited = False
-        self.__cache = {}
 
     def __repr__(self):
         return pp.pformat(self.__children)
@@ -65,24 +72,16 @@ class Node:
             if len(prefix_letters) > 1:
                 self.__children[first_letter].get_words_starting_with_prefix(prefix, prefix_letters[1:], words)
             else:
-                # Optimize from here
                 self.__children[first_letter].__get_all_words_from_node(prefix, words)
 
     def __get_all_words_from_node(self, curr_word, words):
         if self.__is_last_letter:
             words.append(curr_word)
 
-            # Add to cache
-            self.__cache[curr_word] = words
-        
         if self.__children:
             for letter, node in self.__children.items():
                 curr_word += letter
-                
-                # Get from cache
-                if curr_word in self.__cache:
-                    words.extend(self.__cache[curr_word])
-                elif not node.__get_all_words_from_node(curr_word, words):
+                if not node.__get_all_words_from_node(curr_word, words):
                     curr_word = curr_word[:-1]
         else:
             return False
@@ -105,4 +104,5 @@ class Node:
                 node.set_last_letter()
             self.__children[first_letter] = node
         else:
-            self.__children[first_letter].add(word[1:])
+            node = self.__children[first_letter]
+            node.add(word[1:])

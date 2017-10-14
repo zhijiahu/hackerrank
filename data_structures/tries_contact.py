@@ -1,18 +1,22 @@
 from tries import Tries
 
+g_debug = False
 
 tries = Tries()
 
+def print_verbose(msg):
+    if g_debug:
+        print(msg)
 
 def add_name(name):
     tries.add(name)
-    print(tries)
+    print_verbose(tries)
 
 def find_partial(partial):
     words = tries.get_words_starting_with_prefix(partial)
-    print(words)
+    print_verbose(words)
     result = len(words)
-    print(result)
+    print_verbose(result)
     return result
 
 def run_with_user_input():
@@ -50,5 +54,5 @@ def run_test_case():
                 output_index += 1
 
 if __name__ == '__main__':
-    run_with_user_input()
-    #run_test_case()
+    #run_with_user_input()
+    run_test_case()
