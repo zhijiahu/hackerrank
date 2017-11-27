@@ -5,6 +5,7 @@ from itertools import zip_longest
 
 class QuickSort():
 
+    @staticmethod
     def sort(array):
         """
         1. Choose a pivot from the current segment with right and left pointers
@@ -15,6 +16,28 @@ class QuickSort():
         5. Partition from first to 1 element before RIGHT and from RIGHT to last
         6. Perform the same logic on each partitions
         """
+        pivot = len(array) // 2
+        left = 0
+        right = len(array)-1
+
+        left_element = None
+        while left <= pivot:
+            if array[left] > array[pivot]:
+                left_element = array[left]
+                break
+            left += 1
+
+        right_element = None
+        while right >= pivot:
+            if array[right] < array[pivot]:
+                right_element = array[right]
+                break
+            right -= 1
+
+        # swap
+        left_element, right_element = right_element, left_element
+
+    def partition_sort(left, right, pivot):
         pass
 
 
@@ -54,7 +77,14 @@ for i in range(n):
     player = Player(name, score)
     data.append(player)
 
-
+# Using built-in sort
 data = sorted(data, key=cmp_to_key(Player.comparator))
 for i in data:
     print(i.name, i.score)
+
+
+# Using my own sort
+data = [d.score for d in data]
+QuickSort.sort(data)
+for i in data:
+    print(i)
