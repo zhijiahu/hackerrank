@@ -1,4 +1,5 @@
 from trees_is_binary_search import checkBST
+from queue import MyQueue
 
 
 class Node:
@@ -6,11 +7,19 @@ class Node:
         self.data = data
         self.left = None
         self.right = None
+
+    def __lt__(self, other):
+        return (self.data < other.data)
+
+    def __gt__(self, other):
+        return(self.data > other.data)
     
     def insert(self, data):
         """
         Naive way
         """
+        print('Inserting [{}]... now at [{}]'.format(data, self.data))
+
         if data < self.data:
             if self.left is None:
                 self.left = Node(data)
@@ -21,6 +30,11 @@ class Node:
                 self.right = Node(data)
             else:
                 self.right.insert(data)
+
+        print('    [{}]'.format(self.data))
+        print('    /  \\')
+        print('  [{}]  [{}]'.format(self.left.data if self.left is not None else '', self.right.data if self.right is not None else ''))
+        print('')
 
     def contains(self, data):
         if data < self.data:
@@ -37,25 +51,48 @@ class Node:
         else:
             return True
 
-    def print_in_order(self):
+    def get_ordered_list(self, sorted_list):
         if self.left is not None:
-            self.left.print_in_order()
+            self.left.get_ordered_list(sorted_list)
 
-        print('[{data}]'.format(data=self.data))
+        sorted_list.append(self.data)
 
         if self.right is not None:
-            self.right.print_in_order()
+            self.right.get_ordered_list(sorted_list)
+
+    def print_tree(self):
+        q = MyQueue()
+        q.put(self)
+
+        while q.size() > 0:
+            n = q.pop()
+
+            print('[{}]'.format(n.data))
+            if n.left is not None:
+                q.put(n.left)
+
+            if n.right is not None:
+                q.put(n.right)
 
 
 if __name__ == "__main__":
-    n = Node(1)
-    n.insert(2)
-    n.insert(4)
-    n.insert(3)
-    n.insert(5)
-    n.insert(6)
-    n.insert(7)
 
-    n.print_in_order()
+    # Insert
+    print('\nInserting...')
+    top = 8
+    n = Node(top)
+    insert_list = [3,7,2,4,6,5]
+    for d in insert_list:
+        n.insert(d)
+    print('Insert order: {},{}'.format(top, ','.join(str(d) for d in insert_list)))
 
-    print(checkBST(n))
+    # Order
+    sorted_list = []
+    n.get_ordered_list(sorted_list)
+    print('\nReturn ordered list: {}'.format(sorted_list))
+
+    # BFS
+    print('\nReturn list after BFS:')
+    n.print_tree()
+
+    print('\nBinary Search Tree: {}'.format(checkBST(n)))
