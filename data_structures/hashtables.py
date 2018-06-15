@@ -33,11 +33,11 @@ class HashTable:
         return hash(key) % len(self._map)
 
 
-if __name__ == '__main__':
-    d = HashTable()
-    d['test'] = 2
-    print(d['test'])
-    d['test'] = 3
-    print(d['test'])
-    d['test'] = '13'
-    print(d['test'])
+d = HashTable()
+d['test'] = 2
+print(d['test'])
+d['test'] = 3
+print(d['test'])
+d['test'] = '13'
+print(d['test'])
+

@@ -37,6 +37,8 @@ class Node:
         print('')
 
     def contains(self, data):
+        print('Finding {}'.format(data))
+
         if data < self.data:
             if self.left is not None:
                 return self.left.contains(data)
@@ -95,4 +97,9 @@ if __name__ == "__main__":
     print('\nReturn list after BFS:')
     n.print_tree()
 
+    # Search
+    e = insert_list[2]
+    print('\nFinding element {} .. {}'.format(e, n.contains(e)))
+
+    # Is BST?
     print('\nBinary Search Tree: {}'.format(checkBST(n)))
