@@ -1,4 +1,3 @@
-from trees_is_binary_search import checkBST
 from queue import MyQueue
 
 
@@ -101,5 +100,3 @@ if __name__ == "__main__":
     e = insert_list[2]
     print('\nFinding element {} .. {}'.format(e, n.contains(e)))
 
-    # Is BST?
-    print('\nBinary Search Tree: {}'.format(checkBST(n)))
