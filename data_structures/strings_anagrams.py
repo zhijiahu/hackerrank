@@ -50,5 +50,5 @@ def is_twin(a, b):
 a = input().strip()
 b = input().strip()
 
-print(number_needed(a, b))
-print(is_twin(a, b))
+print('Requires {} deletions to make them anagram'.format(number_needed(a, b)))
+print('Is anagram? {}'.format(is_twin(a, b)))
