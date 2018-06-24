@@ -1,4 +1,7 @@
 
+import random
+
+
 def bubble_sort(array):
 
     total_swaps = 0
@@ -26,7 +29,8 @@ def bubble_sort(array):
 
 
 if __name__ == '__main__':
-    n = int(input().strip())
-    a = list(map(int, input().strip().split(' ')))
 
-    bubble_sort(a)
+    l = [random.randint(0,1000) for _ in range(100)]
+    print(l)
+    bubble_sort(l)
+    print(l)
