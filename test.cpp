@@ -1,4 +1,5 @@
 
+#include <vector>
 #include <iostream>
 
 class Enhanced
@@ -16,11 +17,18 @@ public:
 };
 
 
-int* foo()
-{
-    int x=2;
-    return &x;
-}
+// int* foo()
+// {
+//     int x=2;
+//     return &x;
+// }
+
+struct MyType { int x;};
+struct Component  {
+    operator MyType() const  {    return *this; }
+    int x;
+};
+
 
 int main()
 {
@@ -28,6 +36,11 @@ int main()
     instance->baseMethod();
     delete instance;
 
-    int* f = foo();
-    std::cout << f << std::endl;
+    std::vector<int> v = {1,2};
+    v.reserve(5);
+    //std::cout << v.at(4) << std::endl;
+
+    Component c;
+    MyType type = c;
+    return 0;
 }
