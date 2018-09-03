@@ -5,10 +5,11 @@ import random
 def bubble_sort(array):
 
     total_swaps = 0
+    end = len(array) - 1
     for (i, item) in enumerate(array):
         num_swaps = 0;
 
-        for (j, item) in enumerate(array[:-1]):
+        for (j, item) in enumerate(array[:end]):
             # Swap adjacent elements if they are in decreasing order
             if (array[j] > array[j + 1]):
                 temp = array[j]
@@ -16,6 +17,8 @@ def bubble_sort(array):
                 array[j+1] = temp
 
                 num_swaps += 1
+
+        end -= 1
 
         total_swaps += num_swaps
 
