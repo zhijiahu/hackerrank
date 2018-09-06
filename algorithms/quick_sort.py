@@ -1,12 +1,10 @@
 
-from functools import cmp_to_key
-from itertools import zip_longest
-
+import random
 
 class QuickSort():
 
     @staticmethod
-    def sort(array):
+    def _sort(left, right, array):
         """
         1. Choose a pivot from the current segment with right and left pointers
            at last and first element
@@ -16,75 +14,78 @@ class QuickSort():
         5. Partition from first to 1 element before RIGHT and from RIGHT to last
         6. Perform the same logic on each partitions
         """
-        pivot = len(array) // 2
-        left = 0
-        right = len(array)-1
+        pivot = right
+        right = pivot-1
+        initial_left = left
+        initial_right = right
 
-        left_element = None
-        while left <= pivot:
-            if array[left] > array[pivot]:
-                left_element = array[left]
+        print('pivot [{}]'.format(pivot))
+
+        while True:
+            while True:
+                if left == right:
+                    break
+
+                if array[left] >= array[pivot]:
+                    break
+
+                if left == pivot-1:
+                    break
+
+                left += 1
+                print('left [{}]'.format(left))
+
+            while True:
+                if left == right:
+                    break
+
+                if array[right] <= array[pivot]:
+                    break
+
+                if right == 0:
+                    break
+
+                right -= 1
+                print('right [{}]'.format(right))
+
+            if left == right:
                 break
-            left += 1
 
-        right_element = None
-        while right >= pivot:
-            if array[right] < array[pivot]:
-                right_element = array[right]
-                break
-            right -= 1
-
-        # swap
-        left_element, right_element = right_element, left_element
-
-    def partition_sort(left, right, pivot):
-        pass
+            # swap left and right
+            print("swapping [{}] [{}]".format(left, right))
+            temp = array[left]
+            array[left] = array[right]
+            array[right] = temp
+            print(array)
 
 
-class Player:
-    def __init__(self, name, score):
-        self.name = name
-        self.score = score
+        assert left == right
 
-    def __repr__(self):
-        return self.name
+        # right/left onswap with pivot
+        print("swapping pivot [{}] [{}]".format(pivot, right))
+        temp = array[pivot]
+        array[pivot] = array[left]
+        array[left] = temp
+        print(array)
 
-    def comparator(a, b):
-        if a.score > b.score:
-            return -1
-        elif b.score > a.score:
-            return 1
+        if pivot == left and pivot == right:
+            return # already sorted
 
-        char_pairs = zip_longest(a.name, b.name)
-        for pair in char_pairs:
-            if pair[0] is None:
-                return -1
-            if pair[1] is None:
-                return 1
+        pivot = left # or right, no diff
 
-            if pair[0] > pair[1]:
-                return 1
-            elif pair[1] > pair[0]:
-                return -1
+        import ipdb; ipdb.set_trace()
 
-        return 0 # same
+        print(array)
+        print('Split at [{}]'.format(pivot))
+        QuickSort._sort(initial_left, pivot-1, array)
+        QuickSort._sort(pivot+1, initial_right+1, array)
 
-n = int(input())
-data = []
-for i in range(n):
-    name, score = input().split()
-    score = int(score)
-    player = Player(name, score)
-    data.append(player)
+    @staticmethod
+    def sort(array):
+        QuickSort._sort(left=0, right=len(array)-1, array=array)
 
-# Using built-in sort
-data = sorted(data, key=cmp_to_key(Player.comparator))
-for i in data:
-    print(i.name, i.score)
+l = [random.randint(0,10) for _ in range(10)]
+print(l)
+QuickSort.sort(l)
+print(l)
 
-
-# Using my own sort
-data = [d.score for d in data]
-QuickSort.sort(data)
-for i in data:
-    print(i)
