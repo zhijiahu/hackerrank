@@ -1,5 +1,6 @@
 
 *.out
+*.dump
 
 # Python
 __pycache__
@@ -27,3 +28,12 @@ Release
 *.vbproj.user
 ipch
 *sdf
+*.code-workspace
+
+# Gtags
+GPATH
+GRTAGS
+GTAGS
+
+# Erlang
+*.beam
