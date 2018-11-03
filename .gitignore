@@ -1,6 +1,7 @@
 
 *.out
 *.dump
+*.clang_complete
 
 # Python
 __pycache__
