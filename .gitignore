@@ -6,6 +6,7 @@
 # Python
 __pycache__
 *.pyc
+.ipynb_checkpoints
 
 # Compiled Object files
 *.slo
@@ -20,6 +21,8 @@ __pycache__
 *.lai
 *.la
 *.a
+
+*.exe
 
 # Visual Studio Files
 Debug

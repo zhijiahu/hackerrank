@@ -1,0 +1,13 @@
+
+
+class Widget
+{
+
+
+};
+
+
+int main ()
+{
+
+}
