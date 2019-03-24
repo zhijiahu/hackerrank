@@ -30,9 +30,11 @@ Release
 *.suo
 *.csproj.user
 *.vbproj.user
+*.vcxproj.user
 ipch
 *sdf
 *.code-workspace
+.vs
 
 # Gtags
 GPATH
