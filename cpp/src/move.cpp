@@ -3,25 +3,36 @@
 
 #include "pch.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class Widget
 {
 public:
-	Widget() { cout << "1" << endl; }
-	Widget(const Widget&) { cout << "2" << endl; }
-	Widget(Widget&&) { cout << "3" << endl; }
+	Widget() { cout << "1"; }
+	Widget(const Widget&) { cout << "2"; }
+	Widget(Widget&&) { cout << "3"; }
 };
-
 
 int main()
 {
-	Widget w;
-	Widget ww(Widget{});
+	// Widget w;
+    // cout << "=========" << endl;
 
+	// Widget ww(w);
+    // cout << "=========" << endl;
 
-	cout << "test" << endl;
+    Widget www(Widget());
+    cout << "=========" << endl;
+
+    vector<int> v{true, true, false, false};
+    for (auto&& x: v) // must be &&, otherwise it will try to init to non-const
+    {
+        x = true;
+        cout << x;
+    }
+
 
 	return 0;
 }

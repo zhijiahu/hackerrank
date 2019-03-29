@@ -7,7 +7,7 @@ project_path := $(dir $(mkfile_path))
 
 build: ensure-bin main
 
-main: move.cpp
+main: src/move.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $(project_path)bin/$@
 
 ensure-bin:
