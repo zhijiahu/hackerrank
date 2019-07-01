@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -14,14 +15,28 @@ public:
 	Widget(Widget&&) { cout << "3" << endl; }
 };
 
+Widget GetWidget()
+{
+	Widget w;
+	return w;
+}
+
 
 int main()
 {
+	/*Widget w;
+	Widget ww(Widget{}); */
+
 	Widget w;
-	Widget ww(Widget{});
+	Widget ww(GetWidget());
 
 
-	cout << "test" << endl;
+	std::vector<int> v{ 1, 2, 3, 4, 5 };
+	for (auto&& x : v)
+	{
+		x *= 2;
+		std::cout << x;
+	}
 
 	return 0;
 }
