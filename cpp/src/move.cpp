@@ -15,16 +15,19 @@ public:
 	Widget(Widget&&) { cout << "3"; }
 };
 
+Widget GetWidget()
+{
+	Widget w;
+	return w;
+}
+
 int main()
 {
-	// Widget w;
-    // cout << "=========" << endl;
+	/*Widget w;
+	Widget ww(Widget{}); */
 
-	// Widget ww(w);
-    // cout << "=========" << endl;
-
-    Widget www(Widget());
-    cout << "=========" << endl;
+	Widget w;
+	Widget ww(GetWidget());
 
     vector<int> v{true, true, false, false};
     for (auto&& x: v) // must be &&, otherwise it will try to init to non-const
@@ -33,6 +36,12 @@ int main()
         cout << x;
     }
 
+	// std::vector<int> v{ 1, 2, 3, 4, 5 };
+	// for (auto&& x : v)
+	// {
+	// 	x *= 2;
+	// 	std::cout << x;
+	// }
 
 	return 0;
 }
